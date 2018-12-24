@@ -1,0 +1,42 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}
+    {% if title %}
+        {{ title }} - UnicaSafkat
+    {% else %}
+        UnicaSafkat
+    {% endif %}
+{% endblock %}
+
+{% block navbar %}
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{{ url_for('frontpage') }}">UnicaSafkat</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="{{ url_for('frontpage') }}">Päivän menut</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Viikon menut
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ url_for('ravintola', restaurant='assarin-ullakko') }}">Assarin ullakko</a></li>
+                        <li><a href="{{ url_for('ravintola', restaurant='brygge') }}">Brygge</a></li>
+                        <li><a href="{{ url_for('ravintola', restaurant='delica') }}">Delica</a></li>
+                        <li><a href="{{ url_for('ravintola', restaurant='deli-pharma') }}">Deli Pharma</a></li>
+                        <li><a href="{{ url_for('ravintola', restaurant='dental') }}">Dental</a></li>
+                        <li><a href="{{ url_for('ravintola', restaurant='galilei') }}">Galilei</a></li>
+                        <li><a href="{{ url_for('ravintola', restaurant='macciavelli') }}">Macciavelli</a></li>
+                        <li><a href="{{ url_for('ravintola', restaurant='nutritio') }}">Nutritio</a></li>
+                        <li><a href="{{ url_for('ravintola', restaurant='ruokakello') }}">Ruokakello</a></li>
+                        <li><a href="{{ url_for('ravintola', restaurant='tottisalmi') }}">Tottisalmi</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    {% block app_content %}{% endblock %}
+{% endblock %}
