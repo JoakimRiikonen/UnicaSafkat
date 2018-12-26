@@ -1,1 +1,1 @@
-web: gunicorn unicasafkat:app
+web: gunicorn UnicaSafkat:app
