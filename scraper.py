@@ -39,22 +39,26 @@ for link in links:
     # using lxml because the html of the site is broken and html.parser doesnt work
     soup = BeautifulSoup(site.text, 'lxml')
 
-    menuList = soup.find('div', {'class': 'menu-list'})
-    accords = menuList.find_all('div', {'class': 'accord'})
+    try:
+        menuList = soup.find('div', {'class': 'menu-list'})
+        accords = menuList.find_all('div', {'class': 'accord'})
 
-    for accord in accords:
-        day = accord.find('h4').text
-        data[link][day] = []
-        lunches = accord.find_all('td', {'class': 'lunch'})
-        prices = accord.find_all('td', {'class': 'price quiet'})
-        for i in range(len(lunches)):
-            # food item
-            lunch = lunches[i].text
-            # price
-            price = ' '.join(prices[i].text.split())
-            data[link][day].append({"lunch": lunch, "price": price})
+        for accord in accords:
+            day = accord.find('h4').text
+            data[link][day] = []
+            print(day)
+            lunches = accord.find_all('td', {'class': 'lunch'})
+            prices = accord.find_all('td', {'class': 'price quiet'})
+            for i in range(len(lunches)):
+                # food item
+                lunch = lunches[i].text
+                # price
+                price = ' '.join(prices[i].text.split())
+                data[link][day].append({"lunch": lunch, "price": price})
 
-    time.sleep(1)
+        time.sleep(1)
+    except:
+        continue
 
     # break
 
