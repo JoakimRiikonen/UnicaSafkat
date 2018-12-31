@@ -51,7 +51,6 @@ for link in links:
         for accord in accords:
             day = accord.find('h4').text
             data[link][day] = []
-            print(day)
             lunches = accord.find_all('td', {'class': 'lunch'})
             prices = accord.find_all('td', {'class': 'price quiet'})
             for i in range(len(lunches)):
@@ -61,6 +60,8 @@ for link in links:
                 price = ' '.join(prices[i].text.split())
                 data[link][day].append({"lunch": lunch, "price": price})
 
+        print(link + ", data fetched")
+
         time.sleep(1)
     except:
         print(link + ", failed to retrieve data")
@@ -69,9 +70,3 @@ for link in links:
 # saving data as string to redis
 jsonString = json.dumps(data)
 r.set("scrapedata", jsonString)
-
-test = r.get("scrapedata")
-print(test)
-
-# with open('scrapedata.json', 'w') as fp:
-  #  json.dump(data, fp)

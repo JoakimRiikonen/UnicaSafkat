@@ -19,8 +19,6 @@ def frontpage():
     r = setupRedis()
     jsonString = r.get("scrapedata")
     data = json.loads(jsonString)
-    # with open('scrapedata.json') as json_data:
-        # data = json.load(json_data)
 
     week = data.pop("week")
 
@@ -53,8 +51,6 @@ def ravintola(restaurant):
     r = setupRedis()
     jsonString = r.get("scrapedata")
     data = json.loads(jsonString)
-    # with open('scrapedata.json') as json_data:
-        # data = json.load(json_data)
 
     week = data.pop("week")
 
