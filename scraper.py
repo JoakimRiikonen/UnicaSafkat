@@ -4,6 +4,15 @@ import datetime
 from bs4 import BeautifulSoup
 import lxml
 import json
+import os
+import redis
+
+# setting up redis
+redis_host = "localhost"
+redis_port = 6379
+redis_password = ""
+
+r = redis.StrictRedis(host=redis_host, port=redis_port, password=redis_password, decode_responses=True)
 
 # links to the restaurants
 links = ['assarin-ullakko',
@@ -58,9 +67,15 @@ for link in links:
 
         time.sleep(1)
     except:
+        print(link + ", failed to retrieve data")
         continue
 
-    # break
+# saving data as string to redis
+jsonString = json.dumps(data)
+r.set("scrapedata", jsonString)
 
-with open('scrapedata.json', 'w') as fp:
-    json.dump(data, fp)
+test = r.get("scrapedata")
+print(test)
+
+# with open('scrapedata.json', 'w') as fp:
+  #  json.dump(data, fp)

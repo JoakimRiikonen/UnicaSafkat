@@ -2,14 +2,27 @@ from flask import render_template
 from app import app
 import json
 import datetime
+import redis
+
+# setting up redis
+def setupRedis():
+    redis_host = "localhost"
+    redis_port = 6379
+    redis_password = ""
+
+    r = redis.StrictRedis(host=redis_host,port=redis_port ,password=redis_password, decode_responses=True)
+    return r
 
 
 @app.route('/')
 def frontpage():
 
     # open the data
-    with open('scrapedata.json') as json_data:
-        data = json.load(json_data)
+    r = setupRedis()
+    jsonString = r.get("scrapedata")
+    data = json.loads(jsonString)
+    # with open('scrapedata.json') as json_data:
+        # data = json.load(json_data)
 
     week = data.pop("week")
 
@@ -39,8 +52,11 @@ def frontpage():
 def ravintola(restaurant):
 
     # open the data
-    with open('scrapedata.json') as json_data:
-        data = json.load(json_data)
+    r = setupRedis()
+    jsonString = r.get("scrapedata")
+    data = json.loads(jsonString)
+    # with open('scrapedata.json') as json_data:
+        # data = json.load(json_data)
 
     week = data.pop("week")
 
