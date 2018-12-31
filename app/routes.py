@@ -2,15 +2,13 @@ from flask import render_template
 from app import app
 import json
 import datetime
+import os
 import redis
+
 
 # setting up redis
 def setupRedis():
-    redis_host = "localhost"
-    redis_port = 6379
-    redis_password = ""
-
-    r = redis.StrictRedis(host=redis_host,port=redis_port ,password=redis_password, decode_responses=True)
+    r = redis.from_url(os.environ.get("REDIS_URL") or "127.0.0.1:6379")
     return r
 
 
