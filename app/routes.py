@@ -37,7 +37,8 @@ def frontpage():
     menus = {}
     for restaurant in data:
         try:
-            menus[restaurant] = data[restaurant][current_day]
+            if len(data[restaurant][current_day]) > 0:
+                menus[restaurant] = data[restaurant][current_day]
         except KeyError:
             continue
 
@@ -52,8 +53,10 @@ def ravintola(restaurant):
     jsonString = r.get("scrapedata")
     data = json.loads(jsonString)
 
+    # get the week
     week = data.pop("week")
 
+    # get the menus
     menus = data[restaurant]
 
     return render_template('restaurant.html', week=week, restaurant=restaurant, menus=menus)
